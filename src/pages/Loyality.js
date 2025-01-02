@@ -6,6 +6,7 @@ import "../styles/loyality.css"; // Assuming external CSS file
 import { Button } from "react-bootstrap";
 import BottomSheet from "../components/BottomSheet";
 import Reward from "../components/Reward";
+import { useNavigate } from "react-router-dom";
 
 const userData = {
   name: "Martin James",
@@ -20,7 +21,7 @@ const Loyality = () => {
   const [isSliderOpen, setIsSliderOpen] = useState(false);
   const [coupanPopup, setCoupanPopup] = useState(false);
   const [user, setUser] = useState(userData);
-
+  const navigate = useNavigate()
   const handleFlip = () => {
     setIsSliderOpen(!isSliderOpen);
   };
@@ -187,7 +188,7 @@ const Loyality = () => {
           {coupanPopup && (
             <Reward
               showPopup={coupanPopup}
-              onClose={() => setCoupanPopup(false)}
+              onClose={() => {setCoupanPopup(false); navigate("/dashboard")}}
               countText={user?.reedem_coupan === 9 ? "You Got FREE ICECREAM" : `${user?.reedem_coupan} / ${userData?.total_coupan}`}
             />
           )}

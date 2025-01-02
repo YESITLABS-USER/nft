@@ -25,9 +25,10 @@ const Dashboard = () => {
   const [freeCops, setFreeCops] = useState(false);
   const [isSliderOpen, setIsSliderOpen] = useState(false);
   const [ageLimitaion, setAddlimitation] = useState(false);
-  const navigate = useNavigate();
   const [coupanPopup, setCoupanPopup] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [showAll, setShowAll] = useState(false);
+  const navigate = useNavigate();
 
   const handleToggle = () => { 
     setIsExpanded(!isExpanded);
@@ -136,24 +137,31 @@ const Dashboard = () => {
           <img src={LoyaltyCard} alt="Coupon 1" onClick={() => navigate("/loyality")}
             style={{ objectFit: "contain", cursor: "pointer" }} />
         
-          <div style={{maxHeight:'545px', overflowY: 'scroll'}}>
-            {coupans.map((coupon, index) => (
+          <div style={{maxHeight:'545px',}} className={showAll ? "custom-scrollbar" : ""}>
+            {coupans.slice(0, showAll ? coupans.length : 3).map((coupon, index) => (
               <img key={index} src={coupon.img} alt={coupon.name} style={{ objectFit: "contain", cursor: "pointer" }}
-                onClick={() => { setFreeCops(true); setAddlimitation(false); }}
+                // onClick={() => { setFreeCops(true); setAddlimitation(false); }}
+                onClick={() => {
+                  if (index == 2 || index == 5) {
+                    setFreeCops(true);
+                    setAddlimitation(true);
+                  } else {
+                    setFreeCops(true);
+                    setAddlimitation(false);
+                  }
+                }}
               />
             ))}
           </div>
           
           {/* <img src={Coops1} alt="Coupon 2" style={{ objectFit: "contain" }}
             onClick={() => { setFreeCops(true); setAddlimitation(false); }} />
-
           <img src={Coops2} alt="Coupon 3" style={{ objectFit: "contain" }} />
-
           <img src={Coops3} alt="Coupon 4" style={{ objectFit: "contain" }} onClick={() => {
               setFreeCops(true); setAddlimitation(true); }} /> */}
         </div>
         <button
-          onClick={() => alert("Show more clicked!")} // Implement your logic here
+          onClick={() => setShowAll(!showAll)} // Implement your logic here
           style={{
             marginTop: "20px",
             padding: "10px 20px",
@@ -163,9 +171,8 @@ const Dashboard = () => {
             borderRadius: "5px",
             cursor: "pointer",
           }}
-        >
-          See More
-          <FaChevronDown style={{ marginLeft: "10px" }} />
+        > {showAll ? "See Less" : "See More"}
+          <FaChevronDown style={{ marginLeft: "10px", rotate:`${showAll ? "180deg" : "0deg"}` }} />
         </button>
       </div>
 
@@ -294,7 +301,7 @@ const Dashboard = () => {
           onClose={() => setCoupanPopup(false)}
           countText={"Here is your FREE COFFEE Coupon from olo"}
         />
-          )}
+        )}
     </>
   );
 };

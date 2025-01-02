@@ -7,20 +7,18 @@ import { IoIosCloseCircle } from "react-icons/io";
 const AddShortCut = ({ isModalOpen, setIsModalOpen }) => {
   const closeModal = () => setIsModalOpen(false);
   const [deferredPrompt, setDeferredPrompt] = useState(null);
-  console.log(deferredPrompt, "differprompt");
+
+  console.log(deferredPrompt, "deffer prompteddd");
 
   useEffect(() => {
     const handleBeforeInstallPrompt = (event) => {
-      // Prevent the default prompt from appearing
-      event.preventDefault();
-      // Save the event to trigger it later
-      setDeferredPrompt(event);
+      console.log("beforeinstallprompt event captured");
+      event.preventDefault(); // Prevent default browser behavior
+      setDeferredPrompt(event); // Save the event for later use
     };
 
-    // Listen for the 'beforeinstallprompt' event
     window.addEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
 
-    // Cleanup the event listener
     return () => {
       window.removeEventListener(
         "beforeinstallprompt",
@@ -30,18 +28,20 @@ const AddShortCut = ({ isModalOpen, setIsModalOpen }) => {
   }, []);
 
   const handleAddToHomeScreen = () => {
-    if (deferredPrompt) {
-      deferredPrompt.prompt(); // Show the "Add to Home Screen" prompt
-      deferredPrompt.userChoice.then((choiceResult) => {
-        if (choiceResult.outcome === "accepted") {
-          console.log("User added the app to home screen.");
-        } else {
-          console.log("User dismissed the add to home screen prompt.");
-        }
-        setDeferredPrompt(null); // Clear the saved prompt
-      });
+    if (!deferredPrompt) {
+      console.warn("No deferredPrompt available.");
+      return;
     }
-    console.log("hello world");
+
+    deferredPrompt.prompt(); // Show the A2HS prompt
+    deferredPrompt.userChoice.then((choiceResult) => {
+      if (choiceResult.outcome === "accepted") {
+        console.log("User added the app to home screen.");
+      } else {
+        console.log("User dismissed the add to home screen prompt.");
+      }
+      setDeferredPrompt(null); // Clear the saved prompt
+    });
   };
 
   useEffect(() => {

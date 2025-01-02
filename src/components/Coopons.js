@@ -5,6 +5,28 @@ import { FaInfoCircle } from "react-icons/fa";
 import LoginModal from "./InfoModal";
 const Coopons = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const [shakeIndex, setShakeIndex] = useState(null); // Track which image is shaking
+
+  const handleImageClick = (index) => {
+    setShakeIndex(index); // Trigger shake for the clicked image
+    setTimeout(() => setShakeIndex(null), 500); // Remove shake effect after animation duration
+  };
+
+  const shakeAnimation = {
+    animation: "shake 0.5s ease", // Inline shake animation
+  };
+
+  const keyframes = `
+    @keyframes shake {
+      0% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      50% { transform: translateX(5px); }
+      75% { transform: translateX(-5px); }
+      100% { transform: translateX(0); }
+    }
+  `;
+
   return (
     <div style={style.container}>
       <div
@@ -25,7 +47,7 @@ const Coopons = () => {
             color: "#000000",
           }}
         >
-          Coopons
+          Coupons
         </span>
         <FaInfoCircle
           style={{ marginRight: "30px" }}
@@ -34,18 +56,23 @@ const Coopons = () => {
           onClick={() => setIsModalOpen(true)}
         />
       </div>
-      <img
-        src={CooponsImg}
-        alt="Star Pattern"
-        className="start-img"
-        style={{ width: "auto", height: "auto" }} // Adjust width and height as needed
-      />
-      <img
-        src={CooponsImg}
-        alt="Star Pattern"
-        className="start-img"
-        style={{ width: "auto", height: "auto" }} // Adjust width and height as needed
-      />
+      <div style={{ display: "flex", flexDirection: "column" }}>
+        <style>{keyframes}</style>
+        {[1, 2].map((_, index) => (
+          <img
+            key={index}
+            src={CooponsImg}
+            alt={`Star Pattern ${index + 1}`}
+            style={{
+              width: "auto",
+              height: "auto",
+              cursor: "pointer",
+              ...(shakeIndex === index ? shakeAnimation : {}), // Apply shake animation if clicked
+            }}
+            onClick={() => handleImageClick(index)}
+          />
+        ))}
+      </div>
       <LoginModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
     </div>
   );
