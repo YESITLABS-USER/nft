@@ -14,7 +14,7 @@ import CoupanComponent from "./components/CoupanComponent";
 const AppRoutes = () => {
   return (
     <Routes>
-      <Route path="" element={<LoginPage />} />
+      <Route path="/" element={<LoginPage />} />
       <Route path="/signup" element={<SignupPage />} />
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/contactFaq" element={<ContactFaq />} />
