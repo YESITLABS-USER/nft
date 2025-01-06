@@ -12,6 +12,7 @@ import BottomSheet from "../components/BottomSheet";
 import CopsActivation from "../components/CopsActivation";
 import Reward from "../components/Reward";
 import CoupanComponent from "../components/CoupanComponent";
+import { MdDelete } from "react-icons/md";
 
 const items = [
   {
@@ -141,9 +142,13 @@ const MyPage = () => {
             alignItems: "center", // Center images horizontally
           }}
         >
-          <img src={LoyaltyCard} alt="Coupon 1" style={{ objectFit: "contain" }}/>
+          <div style={{display:'flex', justifyContent:'space-between', alignItems:'center'}}> 
+            <img src={LoyaltyCard} alt="Coupon 1" style={{ objectFit: "contain" }}/>
+            <MdDelete style={{fontSize:"25px", color:'red'}}/>
 
-          <div style={{maxHeight:"400px", display:'flex', flexDirection:'column', gap:"20px"}} className={showAll ? "custom-scrollbar" : ""}>
+          </div>
+
+          <div style={{maxHeight:"400px", display:'flex', flexDirection:'column', gap:"20px", overflowX:'hidden'}} className={showAll ? "custom-scrollbar" : ""}>
             {allCoupans.slice(0, showAll ? allCoupans.length : 2).map((coupan, index) => (
               // <img key={index} src={coupan.img} alt={coupan.anme} style={{ objectFit: "contain" }} onClick={() => {
               //   if (coupan?.age) {

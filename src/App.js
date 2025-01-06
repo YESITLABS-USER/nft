@@ -13,27 +13,32 @@ function App() {
   useEffect(() => {
     // Check if the user is on a mobile device
     const checkDeviceType = () => {
-      const isMobileDevice = window.innerWidth <= 768;
+      const isMobileDevice = window.innerWidth <= 768; // Example breakpoint for mobile
       setIsMobile(isMobileDevice);
     };
 
     // Initial check on component mount
     checkDeviceType();
 
+    // Listen for window resize to update the device type
     window.addEventListener("resize", checkDeviceType);
+
+    // Cleanup event listeners on unmount
     return () => {
       window.removeEventListener("resize", checkDeviceType);
     };
   }, []);
 
   useEffect(() => {
+    // Check if the splash screen has already been shown
     const splashShown = localStorage.getItem("splashShown");
 
     if (!splashShown) {
+      // If not shown, show splash screen and set the flag
       setShowSplash(true);
       const splashTimer = setTimeout(() => {
-        setShowSplash(false);
-        localStorage.setItem("splashShown", "true");
+        setShowSplash(false); // Hide splash screen after 3 seconds
+        localStorage.setItem("splashShown", "true"); // Save the flag
       }, 3000);
 
       return () => clearTimeout(splashTimer); // Cleanup timer on component unmount

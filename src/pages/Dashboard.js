@@ -19,6 +19,7 @@ import BottomSheet from "../components/BottomSheet";
 import { useNavigate } from "react-router-dom";
 import Reward from "../components/Reward";
 import CoupanComponent from "../components/CoupanComponent";
+import { MdDelete } from "react-icons/md";
 
 const Dashboard = () => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -72,7 +73,7 @@ const Dashboard = () => {
       <div
         style={{
           backgroundColor: "#E0E0E0",
-          width: "100vw",
+          width: "100%",
           height: "3px",
           padding: "0",
           boxSizing: "border-box",
@@ -112,7 +113,7 @@ const Dashboard = () => {
         />
       </div>
       <div>
-        <img src={HomeImg} alt="homeImg" style={{ objectFit: "contain" }} />
+        <img src={HomeImg} alt="homeImg" style={{ objectFit: "contain", width:'100%' }} />
       </div>
 
       <div style={{ textAlign: "left", margin: "0 auto", width: "90%" }}>
@@ -155,15 +156,14 @@ const Dashboard = () => {
             alignItems: "center", // Center images horizontally
           }}
         >
-          <img
-            src={LoyaltyCard}
-            alt="Coupon 1"
-            onClick={() => navigate("/loyality")}
-            style={{ objectFit: "contain", cursor: "pointer" }}
-          />
+          <div style={{display:'flex',justifyContent:'space-between', alignItems:'center'}}> 
+            <img src={LoyaltyCard} alt="Coupon 1" onClick={() => navigate("/loyality")} 
+              style={{ objectFit: "contain", cursor: "pointer" }} />
+            <MdDelete style={{fontSize:"25px", color:'red'}}/>
+          </div>
 
           <div
-            style={{ maxHeight: "545px", display:'flex', flexDirection:'column', gap:'10px' }}
+            style={{ maxHeight: "545px", display:'flex', flexDirection:'column', gap:'10px', overflowX:'hidden' }}
             className={showAll ? "custom-scrollbar" : ""}
           >
             {coupans

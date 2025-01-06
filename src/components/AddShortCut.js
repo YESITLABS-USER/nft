@@ -4,7 +4,12 @@ import AddToCardImg from "../assets/icons/addToHome.png";
 import AddToCardButton from "../assets/icons/button.png";
 import { IoIosCloseCircle } from "react-icons/io";
 
-const AddShortCut = ({ isModalOpen, setIsModalOpen, handleInstallClick }) => {
+const AddShortCut = ({
+  isModalOpen,
+  setIsModalOpen,
+  handleInstallClick,
+  showInstallButton,
+}) => {
   const closeModal = () => setIsModalOpen(false);
 
   useEffect(() => {
@@ -46,7 +51,9 @@ const AddShortCut = ({ isModalOpen, setIsModalOpen, handleInstallClick }) => {
             }}
           >
             <h4 style={{ color: "#000000", fontSize: "20px" }}>
-              Already registered
+              {showInstallButton
+                ? " Already registered"
+                : "Add tagis to your home screen"}
             </h4>
             <IoIosCloseCircle
               color={"#2A0181"}
@@ -59,12 +66,15 @@ const AddShortCut = ({ isModalOpen, setIsModalOpen, handleInstallClick }) => {
                 marginTop: -50,
               }}
             />
-
-            <img
-              src={AddToCardImg}
-              alt="Start Pattern"
-              style={{ width: "auto", height: "auto" }}
-            />
+            {showInstallButton ? (
+              "Already installed "
+            ) : (
+              <img
+                src={AddToCardImg}
+                alt="Start Pattern"
+                style={{ width: "auto", height: "auto" }}
+              />
+            )}
 
             <img
               src={AddToCardButton}
