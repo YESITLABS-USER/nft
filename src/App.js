@@ -1,19 +1,10 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
-import LoginPage from "./pages/LoginPage";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import SignupPage from "./pages/SignupPage";
-import Dashboard from "./pages/Dashboard";
-import ContactFaq from "./pages/Contact&Faq";
-import MyPage from "./pages/MyPage";
-import TermCondn from "./pages/Term&Condn";
-import AboutService from "./pages/AboutService";
-import MyProfile from "./pages/MyProfile";
 import BackgroundImg from "./assets/images/backgrounImg.png";
 import Logo from "./assets/icons/logo.png";
-
+import { BrowserRouter as Router } from "react-router-dom";
 import SplashImg from "./assets/images/splashScreen.png";
-import Loyality from "./pages/Loyality";
+import AppRoutes from "./AppRoutes";
 
 function App() {
   const [isMobile, setIsMobile] = useState(false); // State for mobile detection
@@ -116,20 +107,9 @@ function App() {
             </span>
           </div>
         )}
-
-        {/* Your Routes */}
-        <Routes>
-          <Route path="/" element={<LoginPage />} />
-          <Route path="/signup" element={<SignupPage />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/contactFaq" element={<ContactFaq />} />
-          <Route path="/mypage" element={<MyPage />} />
-          <Route path="/termCondn" element={<TermCondn />} />
-          <Route path="/aboutService" element={<AboutService />} />
-          <Route path="/myprofile" element={<MyProfile />} />
-          <Route path="/loyality" element={<Loyality />} />
-        </Routes>
       </div>
+
+      <AppRoutes />
     </Router>
   );
 }

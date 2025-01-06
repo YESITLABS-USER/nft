@@ -1,48 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 
 import AddToCardImg from "../assets/icons/addToHome.png";
 import AddToCardButton from "../assets/icons/button.png";
 import { IoIosCloseCircle } from "react-icons/io";
 
-const AddShortCut = ({ isModalOpen, setIsModalOpen }) => {
+const AddShortCut = ({ isModalOpen, setIsModalOpen, handleInstallClick }) => {
   const closeModal = () => setIsModalOpen(false);
-  const [deferredPrompt, setDeferredPrompt] = useState(null);
-
-  console.log(deferredPrompt, "deffer prompteddd");
-
-  useEffect(() => {
-    const handleBeforeInstallPrompt = (event) => {
-      console.log("beforeinstallprompt event captured");
-      event.preventDefault(); // Prevent default browser behavior
-      setDeferredPrompt(event); // Save the event for later use
-    };
-
-    window.addEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
-
-    return () => {
-      window.removeEventListener(
-        "beforeinstallprompt",
-        handleBeforeInstallPrompt
-      );
-    };
-  }, []);
-
-  const handleAddToHomeScreen = () => {
-    if (!deferredPrompt) {
-      console.warn("No deferredPrompt available.");
-      return;
-    }
-
-    deferredPrompt.prompt(); // Show the A2HS prompt
-    deferredPrompt.userChoice.then((choiceResult) => {
-      if (choiceResult.outcome === "accepted") {
-        console.log("User added the app to home screen.");
-      } else {
-        console.log("User dismissed the add to home screen prompt.");
-      }
-      setDeferredPrompt(null); // Clear the saved prompt
-    });
-  };
 
   useEffect(() => {
     if (isModalOpen) {
@@ -83,7 +46,7 @@ const AddShortCut = ({ isModalOpen, setIsModalOpen }) => {
             }}
           >
             <h4 style={{ color: "#000000", fontSize: "20px" }}>
-              Add tagis to your home screen
+              Already registered
             </h4>
             <IoIosCloseCircle
               color={"#2A0181"}
@@ -96,6 +59,7 @@ const AddShortCut = ({ isModalOpen, setIsModalOpen }) => {
                 marginTop: -50,
               }}
             />
+
             <img
               src={AddToCardImg}
               alt="Start Pattern"
@@ -106,7 +70,7 @@ const AddShortCut = ({ isModalOpen, setIsModalOpen }) => {
               src={AddToCardButton}
               alt="Start Pattern"
               style={{ width: "auto", height: "auto", marginTop: 20 }}
-              onClick={handleAddToHomeScreen}
+              onClick={handleInstallClick}
             />
           </div>
         </div>

@@ -41,6 +41,7 @@ const CopsActivation = ({
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
+            zIndex:'10'
           }}
         >
           <div
@@ -78,6 +79,7 @@ const CopsActivation = ({
               />
             </div>
             <img src={FreeCops} alt="free cops" />
+            
             <p style={{ color: "black", textAlign: "center" }}>
               Activate the coupon in-store and show this at the checkout.
               (Coupon is valid for 15 minutes after activation) <br />

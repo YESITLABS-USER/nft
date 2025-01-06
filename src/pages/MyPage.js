@@ -11,6 +11,7 @@ import UnFollow from "../components/Unfollow";
 import BottomSheet from "../components/BottomSheet";
 import CopsActivation from "../components/CopsActivation";
 import Reward from "../components/Reward";
+import CoupanComponent from "../components/CoupanComponent";
 
 const items = [
   {
@@ -38,12 +39,25 @@ const items = [
   },
 ];
 
+// const allCoupans = [
+//   { name: "Coupans 2", img: FreeBeer, age: true, description: "30% off Food COUPAN from olo"},
+//   { name: "Coupans 3", img: Food, age: false, description: " FREE BEER COUPAN from olo"},
+//   { name: "Coupans 2", img: FreeBeer, age: true, description: "FREE BEER COUPAN from olo"},
+//   { name: "Coupans 3", img: Food, age: false, description: " 30% off Food from olo"}
+// ]
 const allCoupans = [
-  { name: "Coupans 2", img: FreeBeer, age: true, description: "30% off Food COUPAN from olo"},
-  { name: "Coupans 3", img: Food, age: false, description: " FREE BEER COUPAN from olo"},
-  { name: "Coupans 2", img: FreeBeer, age: true, description: "FREE BEER COUPAN from olo"},
-  { name: "Coupans 3", img: Food, age: false, description: " 30% off Food from olo"}
-]
+  { coupan_type:"Beverages coupon", coupan_discount : "FREE", coupan_title:"FREE BEER", coupan_validity:"DECEMBER 2025", coupan_color : "red", coupan_age:true  },
+
+  { coupan_type:"Food coupon", coupan_discount : "30%", coupan_title:"30% OFF ON FOOD", coupan_validity:"DECEMBER 2025", coupan_color : "black" },
+
+  { coupan_type:"Beverages coupon", coupan_discount : "FREE", coupan_title:"FREE BEER", coupan_validity:"DECEMBER 2025", coupan_color : "red", coupan_age:true  },
+
+  { coupan_type:"Food coupon", coupan_discount : "30%", coupan_title:"30% OFF ON FOOD", coupan_validity:"DECEMBER 2025", coupan_color : "black" },
+
+  { coupan_type:"Liquors coupon", coupan_discount : "25%", coupan_title:"25% OFF ON LIQUORS", coupan_validity:"DECEMBER 2025", coupan_color : "blue", coupan_age:true },
+
+];
+
 const MyPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [UnFollows, setIsUnfollow] = useState(false);
@@ -129,19 +143,26 @@ const MyPage = () => {
         >
           <img src={LoyaltyCard} alt="Coupon 1" style={{ objectFit: "contain" }}/>
 
-          <div style={{maxHeight:"400px"}} className={showAll ? "custom-scrollbar" : ""}>
+          <div style={{maxHeight:"400px", display:'flex', flexDirection:'column', gap:"20px"}} className={showAll ? "custom-scrollbar" : ""}>
             {allCoupans.slice(0, showAll ? allCoupans.length : 2).map((coupan, index) => (
-              <img key={index} src={coupan.img} alt={coupan.anme} style={{ objectFit: "contain" }} onClick={() => {
-                if (coupan?.age) {
-                  setFreeCops(true);
-                  setAddlimitation(true);
-                  setVoucherDes(coupan.description);
-                } else {
-                  setFreeCops(true);
-                  setAddlimitation(false);
-                  setVoucherDes(coupan.description);
-                }
-              }} />
+              // <img key={index} src={coupan.img} alt={coupan.anme} style={{ objectFit: "contain" }} onClick={() => {
+              //   if (coupan?.age) {
+              //     setFreeCops(true);
+              //     setAddlimitation(true);
+              //     setVoucherDes(coupan.description);
+              //   } else {
+              //     setFreeCops(true);
+              //     setAddlimitation(false);
+              //     setVoucherDes(coupan.description);
+              //   }
+              // }} />
+              <CoupanComponent key={index} coupan_type ={coupan.coupan_type} coupan_discount={coupan.coupan_discount} coupan_title={coupan.coupan_title} coupan_validity={coupan.coupan_validity} coupan_age={coupan.coupan_age} coupan_color={coupan.coupan_color} occupied={coupan.occupied} onClick={() => {if (coupan.coupan_age) {
+                setFreeCops(true);
+                setAddlimitation(true);
+              } else {
+                setFreeCops(true);
+                setAddlimitation(false);
+              }}} />
             ))}
           </div>
           {/* <img src={FreeBeer} alt="Coupon 2" style={{ objectFit: "contain" }} />
