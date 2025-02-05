@@ -31,6 +31,7 @@ const MyPageInfo = ({ isModalOpen, setIsModalOpen, coops }) => {
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
+            zIndex: 20,
           }}
         >
           <div

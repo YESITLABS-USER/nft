@@ -56,14 +56,38 @@ window.addEventListener("beforeinstallprompt", (event) => {
   });
 });
 
-// Handle the iOS installation prompt (custom prompt)
-if (navigator.userAgent.match(/iPhone|iPad|iPod/)) {
-  // Display a custom banner or prompt for iOS
-  const iosInstallBanner = document.createElement("div");
-  iosInstallBanner.innerHTML = `
-    <div style="position: fixed; bottom: 0; left: 0; width: 100%; background: #000; color: #fff; text-align: center; padding: 10px; font-size: 16px;">
-      <p>To install, tap the Share button and select "Add to Home Screen".</p>
-    </div>
-  `;
-  document.body.appendChild(iosInstallBanner);
+// // Handle the iOS installation prompt (custom prompt)
+// if (navigator.userAgent.match(/iPhone|iPad|iPod/)) {
+//   // Display a custom banner or prompt for iOS
+//   const iosInstallBanner = document.createElement("div");
+//   iosInstallBanner.innerHTML = `
+//     <div style="position: fixed; bottom: 0; left: 0; width: 100%; background: #000; color: #fff; text-align: center; padding: 10px; font-size: 16px;">
+//       <p>To install, tap the Share button and select "Add to Home Screen".</p>
+//     </div>
+//   `;
+//   document.body.appendChild(iosInstallBanner);
+// }
+//
+
+if (
+  navigator.userAgent.match(/iPhone|iPad|iPod/) &&
+  !window.navigator.standalone
+) {
+  if (!localStorage.getItem("iosInstallBannerDismissed")) {
+    const iosInstallBanner = document.createElement("div");
+    iosInstallBanner.id = "iosInstallBanner";
+    iosInstallBanner.innerHTML = `
+      <div style="position: fixed; bottom: 0; left: 0; width: 100%; background: #000; color: #fff; text-align: center; padding: 10px; font-size: 16px;">
+        <p>To install, tap the Share button and select "Add to Home Screen".</p>
+        <button id="dismissBanner" style="margin-left: 10px; background: #ff0000; color: #fff; border: none; padding: 5px 10px;">Dismiss</button>
+      </div>
+    `;
+    document.body.appendChild(iosInstallBanner);
+
+    // Handle dismiss button
+    document.getElementById("dismissBanner").addEventListener("click", () => {
+      document.body.removeChild(iosInstallBanner);
+      localStorage.setItem("iosInstallBannerDismissed", "true");
+    });
+  }
 }

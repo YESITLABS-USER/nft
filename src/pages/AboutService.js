@@ -11,7 +11,9 @@ function AboutService() {
   };
   return (
     <div>
-      <OnboardHeader />
+      <div style={{ marginTop: 10 }}>
+        <OnboardHeader />
+      </div>
       <div
         style={{
           backgroundColor: "#E0E0E0",
@@ -19,7 +21,7 @@ function AboutService() {
           height: "3px",
           padding: "0",
           boxSizing: "border-box",
-          marginTop: "20px",
+          marginTop: -30,
         }}
       />
 
@@ -39,25 +41,28 @@ function AboutService() {
             marginTop: "10px",
           }}
         >
-          <span style={{ color: "#000000", fontSize: 20 }}>TAGIS</span>
+          <span style={{ color: "#000000", fontSize: 20, fontWeight: "600" }}>
+            TAGIS
+          </span>
           <span style={{ color: "#2D008C", fontSize: 16, fontWeight: "bold" }}>
             Tap Connect Experience
           </span>
         </div>
       </div>
       <div style={{ margin: 20 }}>
-        <div style={{}}>
+        <div>
           <button
             onClick={() => handleTabChange("coupons")}
             style={{
               padding: "10px 20px",
-              fontSize: "16px",
+              fontSize: "14px",
               backgroundColor: activeTab === "coupons" ? "#E7DCFF" : "white",
               color: activeTab === "coupons" ? "#2D008C" : "#000000",
               border: "none",
               borderRadius: "5px",
               cursor: "pointer",
               marginRight: "10px",
+              fontWeight: "500",
             }}
           >
             COUPONS
@@ -66,13 +71,14 @@ function AboutService() {
             onClick={() => handleTabChange("giveaways")}
             style={{
               padding: "10px 20px",
-              fontSize: "16px",
+              fontSize: "14px",
               backgroundColor: activeTab === "giveaways" ? "#E7DCFF" : "white",
               color: activeTab === "giveaways" ? "#2D008C" : "#000000",
               border: "none",
               borderRadius: "5px",
               cursor: "pointer",
               marginRight: "10px",
+              fontWeight: "600",
             }}
           >
             GIVE AWAYS
@@ -81,12 +87,13 @@ function AboutService() {
             onClick={() => handleTabChange("events")}
             style={{
               padding: "10px 20px",
-              fontSize: "16px",
+              fontSize: "14px",
               backgroundColor: activeTab === "events" ? "#E7DCFF" : "white",
               color: activeTab === "events" ? "#2D008C" : "#000000",
               border: "none",
               borderRadius: "5px",
               cursor: "pointer",
+              fontWeight: "600",
             }}
           >
             EVENTS
@@ -94,10 +101,10 @@ function AboutService() {
         </div>
 
         {/* Display Content Based on Active Tab */}
-        <div>
+        <div style={{ marginLeft: 10 }}>
           {activeTab === "coupons" ? (
             <div>
-              <p>
+              <p style={{ fontWeight: "600", marginTop: 10 }}>
                 Tap the NFC tag and claim your rewards! When you participate in
                 a company’s campaign, you can collect coupons directly on your
                 phone without downloading any apps. You’ll earn coupons by
@@ -111,7 +118,7 @@ function AboutService() {
             </div>
           ) : activeTab === "giveaways" ? (
             <div>
-              <p>
+              <p style={{ fontWeight: "600", marginTop: 10 }}>
                 By tapping, you automatically participate in NFC Media’s monthly
                 raffles! Every tap earns you a raffle ticket, increasing your
                 chances of winning fantastic prizes such as gift cards, trips,
@@ -125,7 +132,7 @@ function AboutService() {
             </div>
           ) : (
             <div>
-              <p>
+              <p style={{ fontWeight: "600", marginTop: 10 }}>
                 Join the fun with NFC Media events! Participate in exciting
                 activities like NFC tag hunts or student events. At these
                 events, you can collect special coupons, or receive unique

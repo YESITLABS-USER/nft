@@ -1,6 +1,6 @@
 import React from "react";
 
-const CustomInput = ({ value, onchange, label }) => {
+const CustomInput = ({ value, onchange, label, num }) => {
   // const [name, setName] = useState(null);
 
   // const handleChange = (e) => {
@@ -10,13 +10,14 @@ const CustomInput = ({ value, onchange, label }) => {
   return (
     <div style={styles.container}>
       <input
-        type="text"
+        type={!num ? "text" : "tel"}
         id="name"
         value={value}
         onChange={(txt) => onchange(txt)}
         className="text-input"
         placeholder={label}
         style={styles.input}
+        inputMode={num}
       />
     </div>
   );

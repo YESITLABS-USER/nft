@@ -9,6 +9,7 @@ import TermCondn from "./pages/Term&Condn";
 import AboutService from "./pages/AboutService";
 import MyProfile from "./pages/MyProfile";
 import Loyality from "./pages/Loyality";
+import AboutScreen from "./pages/AboutScreen";
 
 const AppRoutes = () => {
   return (
@@ -22,6 +23,8 @@ const AppRoutes = () => {
       <Route path="/aboutService" element={<AboutService />} />
       <Route path="/myprofile" element={<MyProfile />} />
       <Route path="/loyality" element={<Loyality />} />
+      <Route path="/aboutScreen" element={<AboutScreen />} />
+      <Route path="*" element={<h1>Page Not Found</h1>} />
     </Routes>
   );
 };

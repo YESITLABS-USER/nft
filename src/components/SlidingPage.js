@@ -49,7 +49,7 @@ const SlidingPage = ({ showPage, setShowPage }) => {
           src={Logo}
           alt="logo"
           style={{ margin: 10 }}
-          onClick={() => handleNavigation("/")}
+          onClick={() => handleNavigation("/dashboard")}
         />
         <FaTimes
           onClick={() => setShowPage(false)}

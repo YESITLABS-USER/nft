@@ -5,9 +5,8 @@ import CancelModal from "./CancelModal";
 const AgeModal = ({ isModalOpen, setIsModalOpen, callBack }) => {
   const closeModal = () => setIsModalOpen(false);
 
-  const [date, setDate] = useState("");
+  const [value, setValue] = useState("");
   const [error, setError] = useState("");
-
   const [cancelModal, setCancelModal] = useState(false);
 
   useEffect(() => {
@@ -23,27 +22,240 @@ const AgeModal = ({ isModalOpen, setIsModalOpen, callBack }) => {
     };
   }, [isModalOpen]);
 
+  //
+
+  // const handleDateChange = (e) => {
+  //   let input = e.target.value;
+
+  //   // Save the cursor position
+  //   // const cursorPosition = e.target.selectionStart;
+  //   const isDeleting = input.length < value.length;
+
+  //   // Remove all non-numeric characters
+  //   input = input.replace(/\D/g, "");
+
+  //   if (isDeleting) {
+  //     // Format progressively while deleting
+  //     if (input.length >= 6) {
+  //       input =
+  //         input.slice(0, 2) + "/" + input.slice(2, 4) + "/" + input.slice(4);
+  //     } else if (input.length >= 4) {
+  //       input = input.slice(0, 2) + "/" + input.slice(2, 4);
+  //     } else if (input.length >= 2) {
+  //       input = input.slice(0, 2) + "/";
+  //     }
+  //   } else {
+  //     if (input.length > 2) {
+  //       input = input.slice(0, 2) + "/" + input.slice(2);
+  //     }
+  //     if (input.length > 5) {
+  //       input = input.slice(0, 5) + "/" + input.slice(5, 10);
+  //     }
+
+  //     // Restrict the length to 10 characters
+  //     if (input.length > 10) {
+  //       input = input.slice(0, 10);
+  //     }
+
+  //     // Update the value and set the cursor position correctly
+  //     setValue(input);
+  //   }
+
+  //   // Restrict the length to 10 characters
+
+  //   // Update state
+  //   setValue(input);
+
+  //   // Restore cursor position
+
+  //   // Validate format
+  //   if (input.length === 10) {
+  //     const [day, month, year] = input.split("/");
+  //     if (
+  //       isNaN(day) ||
+  //       isNaN(month) ||
+  //       isNaN(year) ||
+  //       day < 1 ||
+  //       day > 31 ||
+  //       month < 1 ||
+  //       month > 12 ||
+  //       year < 1900 ||
+  //       year > new Date().getFullYear()
+  //     ) {
+  //       setError(
+  //         "Invalid date. Please enter a valid date in DD/MM/YYYY format."
+  //       );
+  //     } else {
+  //       setError("");
+  //     }
+  //   } else {
+  //     setError("");
+  //   }
+  // };
+
+  //
+
+  //
+
   const handleDateChange = (e) => {
-    const value = e.target.value;
+    let input = e.target.value;
 
-    // Update the input value
-    setDate(value);
+    // Detect whether the user is deleting or adding characters
+    const isDeleting = input.length < value.length;
+    input = input.replace(/\D/g, ""); // Remove non-numeric characters
 
-    // Validate the format (DD/MM/YYYY)
-    const regex = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/;
-    if (!value) {
-      // Check if value is empty
-      setError("DOB can't be empty");
-    } else if (value.length === 10 && !regex.test(value)) {
-      setError("Please enter a valid date in DD/MM/YYYY format");
+    // Format input progressively based on whether deleting or adding
+    if (isDeleting) {
+      if (input.length >= 6) {
+        input = `${input.slice(0, 2)}/${input.slice(2, 4)}/${input.slice(4)}`;
+      } else if (input.length >= 4) {
+        input = input.slice(0, 2) + "/" + input.slice(2, 4);
+      } else if (input.length >= 2) {
+        input = `${input.slice(0, 2)}`;
+      }
+    } else {
+      if (input.length > 2) input = `${input.slice(0, 2)}/${input.slice(2)}`;
+      if (input.length > 5)
+        input = `${input.slice(0, 5)}/${input.slice(5, 10)}`;
+    }
+
+    // Restrict the length to 10 characters
+    input = input.slice(0, 10);
+
+    // Update the value in state
+    setValue(input);
+
+    // Ensure the cursor position is correctly restored after deletion
+    setTimeout(() => {
+      const cursorPosition = e.target.selectionStart;
+      e.target.setSelectionRange(cursorPosition, cursorPosition);
+    }, 0);
+
+    // Validate the date format if it's fully entered
+    if (input.length === 10) {
+      const [day, month, year] = input.split("/").map(Number);
+      const currentYear = new Date().getFullYear();
+      const isValidDate =
+        day >= 1 &&
+        day <= 31 &&
+        month >= 1 &&
+        month <= 12 &&
+        year >= 1900 &&
+        year <= currentYear;
+
+      setError(
+        isValidDate
+          ? ""
+          : "Invalid date. Please enter a valid date in DD/MM/YYYY format."
+      );
     } else {
       setError("");
     }
   };
 
+  // const handleDateChange = (e) => {
+  //   let input = e.target.value;
+
+  //   // Save cursor position and determine if deleting
+  //   const cursorPosition = e.target.selectionStart;
+  //   const isDeleting = input.length < value.length;
+
+  //   // Remove all non-numeric characters
+  //   input = input.replace(/\D/g, "");
+
+  //   // Format the input if not deleting
+  //   if (!isDeleting) {
+  //     if (input.length > 2) input = `${input.slice(0, 2)}/${input.slice(2)}`;
+  //     if (input.length > 5)
+  //       input = `${input.slice(0, 5)}/${input.slice(5, 10)}`;
+  //   }
+
+  //   // Limit input length to 10 characters
+  //   input = input.slice(0, 10);
+
+  //   // Update state
+  //   setValue(input);
+
+  //   // Restore cursor position after deletion
+  //   if (isDeleting) {
+  //     setTimeout(
+  //       () => e.target.setSelectionRange(cursorPosition, cursorPosition),
+  //       0
+  //     );
+  //   }
+
+  //   // Validate date format
+  //   if (input.length === 10) {
+  //     const [day, month, year] = input.split("/").map(Number);
+  //     const currentYear = new Date().getFullYear();
+  //     const isValidDate =
+  //       day >= 1 &&
+  //       day <= 31 &&
+  //       month >= 1 &&
+  //       month <= 12 &&
+  //       year >= 1900 &&
+  //       year <= currentYear;
+
+  //     setError(
+  //       isValidDate
+  //         ? ""
+  //         : "Invalid date. Please enter a valid date in DD/MM/YYYY format."
+  //     );
+  //   } else {
+  //     setError("");
+  //   }
+  // };
+
+  // const handleDateChange = (e) => {
+  //   let input = e.target.value;
+
+  //   // Remove all non-numeric characters
+  //   input = input.replace(/\D/g, "");
+
+  //   // Automatically format as DD/MM/YYYY
+  //   if (input.length > 2) {
+  //     input = input.slice(0, 2) + "/" + input.slice(2);
+  //   }
+  //   if (input.length > 4) {
+  //     input = input.slice(0, 5) + "/" + input.slice(5, 10);
+  //   }
+
+  //   // Restrict the length to 10 characters
+  //   if (input.length > 10) {
+  //     input = input.slice(0, 10);
+  //   }
+
+  //   // Update state
+  //   setValue(input);
+
+  //   // Validate format
+  //   if (input.length === 10) {
+  //     const [day, month, year] = input.split("/");
+  //     if (
+  //       isNaN(day) ||
+  //       isNaN(month) ||
+  //       isNaN(year) ||
+  //       day < 1 ||
+  //       day > 31 ||
+  //       month < 1 ||
+  //       month > 12 ||
+  //       year < 1900 ||
+  //       year > new Date().getFullYear()
+  //     ) {
+  //       setError(
+  //         "Invalid date. Please enter a valid date in DD/MM/YYYY format."
+  //       );
+  //     } else {
+  //       setError("");
+  //     }
+  //   } else {
+  //     setError("");
+  //   }
+  // };
+
   const handleSubmit = () => {
-    if (!error && date) {
-      const [day, month, year] = date.split("/");
+    if (!error && value) {
+      const [day, month, year] = value.split("/");
 
       // Validate if the input date is a valid date
       const birthDate = new Date(`${year}-${month}-${day}`);
@@ -87,7 +299,8 @@ const AgeModal = ({ isModalOpen, setIsModalOpen, callBack }) => {
             backgroundColor: "rgba(0, 0, 0, 0.5)",
             display: "flex",
             alignItems: "center",
-            justifyContent: "center", zIndex:'10'
+            justifyContent: "center",
+            zIndex: "10",
           }}
         >
           <div
@@ -109,35 +322,46 @@ const AgeModal = ({ isModalOpen, setIsModalOpen, callBack }) => {
                 position: "relative",
               }}
             >
-              <h2 style={{ color: "black" }}>
+              <h3 style={{ color: "black", fontWeight: "bold" }}>
                 Confirm your age before proceeding further!!
-              </h2>
+              </h3>
               <IoIosCloseCircle
                 color={"#2A0181"}
                 size={30}
                 style={{
                   position: "absolute",
-                  right: "-10px",
+                  right: "-15px",
                   cursor: "pointer",
-                  top: "-10px",
+                  top: "-20px",
                 }}
                 onClick={closeModal}
               />
             </div>
-            <h5 style={{ marginTop: 20 }}>Date of Birth (DD/MM/YYYY)</h5>
+            <h5
+              style={{
+                marginTop: 20,
+                textAlign: "start",
+                marginLeft: 60,
+                color: "#000000",
+              }}
+            >
+              DOB{" "}
+            </h5>
+            <span style={{ color: "#9A9A9A" }}>Enter your date of birth</span>
             <input
               type="text"
-              value={date}
+              value={value}
               onChange={handleDateChange}
               placeholder="DD/MM/YYYY"
               maxLength="10"
               style={{
                 padding: "8px 12px",
-                border: "1px solid #ccc",
-                borderRadius: "4px",
+                border: "1px solid #2A0181",
+                borderRadius: "10px",
                 fontSize: "16px",
                 width: "200px",
                 marginBottom: "10px",
+                borderColor: "#2A0181",
               }}
             />
             {error && (

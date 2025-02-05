@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 
-import AddToCardImg from "../assets/icons/addToHome.png";
-import AddToCardButton from "../assets/icons/button.png";
+import AddToCardImg from "../assets/icons/addToHome.svg";
+import AddToCardButton from "../assets/icons/button.svg";
 import { IoIosCloseCircle } from "react-icons/io";
 
 const AddShortCut = ({
@@ -50,11 +50,13 @@ const AddShortCut = ({
               width: "93%",
             }}
           >
-            <h4 style={{ color: "#000000", fontSize: "20px" }}>
+            <h5
+              style={{ color: "#000000", fontSize: "20px", fontWeight: "bold" }}
+            >
               {showInstallButton
                 ? " Already registered"
-                : "Add tagis to your home screen"}
-            </h4>
+                : "Add Tagis To Your Home Screen"}
+            </h5>
             <IoIosCloseCircle
               color={"#2A0181"}
               size={30}
@@ -63,7 +65,7 @@ const AddShortCut = ({
                 position: "absolute",
                 right: 15,
                 cursor: "pointer",
-                marginTop: -50,
+                marginTop: -70,
               }}
             />
             {showInstallButton ? (

@@ -31,14 +31,15 @@ const CancelModal = ({ isModalOpen, setIsModalOpen }) => {
             backgroundColor: "rgba(0, 0, 0, 0.5)",
             display: "flex",
             alignItems: "center",
-            justifyContent: "center", zIndex:'10'
+            justifyContent: "center",
+            zIndex: "10",
           }}
         >
           <div
             style={{
               backgroundColor: "#FFFFFF",
               padding: "20px",
-              borderRadius: "10px",
+              borderRadius: "18px",
               boxShadow: "0 2px 10px rgba(0, 0, 0, 0.1)",
               textAlign: "center",
               width: "90%",
@@ -69,8 +70,8 @@ const CancelModal = ({ isModalOpen, setIsModalOpen }) => {
                 }}
               />
             </div>
-            <h5 style={{ marginTop: 20 }}>
-              You are not allowed to use this coupon
+            <h5 style={{ marginTop: 20, fontWeight: "700" }}>
+              You are not allowed to use this coupon.
             </h5>
 
             <div style={{ marginTop: "20px" }}>

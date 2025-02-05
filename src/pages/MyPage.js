@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import OnboardHeader from "../components/OnboardHeader";
 
 import LoyaltyCard from "../assets/icons/loyaltyCard.png";
+import Line22 from "../assets/icons/line222.png";
 import Restro from "../assets/icons/restro.png";
-import FreeBeer from "../assets/icons/freeBeer.png";
-import Food from "../assets/icons/food30.png";
+import ThickLine from "../assets/icons/thickLine.png";
+// import FreeBeer from "../assets/icons/freeBeer.png";
+// import Food from "../assets/icons/food30.png";
 import { FaChevronDown, FaInfoCircle } from "react-icons/fa";
 import MyPageInfo from "../components/MyPageInfo";
 import UnFollow from "../components/Unfollow";
@@ -13,6 +15,7 @@ import CopsActivation from "../components/CopsActivation";
 import Reward from "../components/Reward";
 import CoupanComponent from "../components/CoupanComponent";
 import { MdDelete } from "react-icons/md";
+// import MyPlacesModal from "../components/MyPlacesModal";
 
 const items = [
   {
@@ -47,16 +50,48 @@ const items = [
 //   { name: "Coupans 3", img: Food, age: false, description: " 30% off Food from olo"}
 // ]
 const allCoupans = [
-  { coupan_type:"Beverages coupon", coupan_discount : "FREE", coupan_title:"FREE BEER", coupan_validity:"DECEMBER 2025", coupan_color : "red", coupan_age:true  },
+  {
+    coupan_type: "Beverages coupon",
+    coupan_discount: "FREE",
+    coupan_title: "FREE BEER",
+    coupan_validity: "DECEMBER 2025",
+    coupan_color: "red",
+    coupan_age: true,
+  },
 
-  { coupan_type:"Food coupon", coupan_discount : "30%", coupan_title:"30% OFF ON FOOD", coupan_validity:"DECEMBER 2025", coupan_color : "black" },
+  {
+    coupan_type: "Food coupon",
+    coupan_discount: "30%",
+    coupan_title: "30% OFF ON FOOD",
+    coupan_validity: "DECEMBER 2025",
+    coupan_color: "black",
+  },
 
-  { coupan_type:"Beverages coupon", coupan_discount : "FREE", coupan_title:"FREE BEER", coupan_validity:"DECEMBER 2025", coupan_color : "red", coupan_age:true  },
+  {
+    coupan_type: "Beverages coupon",
+    coupan_discount: "FREE",
+    coupan_title: "FREE BEER",
+    coupan_validity: "DECEMBER 2025",
+    coupan_color: "red",
+    coupan_age: true,
+  },
 
-  { coupan_type:"Food coupon", coupan_discount : "30%", coupan_title:"30% OFF ON FOOD", coupan_validity:"DECEMBER 2025", coupan_color : "black" },
+  {
+    coupan_type: "Food coupon",
+    coupan_discount: "30%",
+    coupan_title: "30% OFF ON FOOD",
+    coupan_validity: "DECEMBER 2025",
+    coupan_color: "black",
+  },
 
-  { coupan_type:"Liquors coupon", coupan_discount : "25%", coupan_title:"25% OFF ON LIQUORS", coupan_validity:"DECEMBER 2025", coupan_color : "blue", coupan_age:true },
-
+  {
+    coupan_type: "Liquors coupon",
+    coupan_discount: "25%",
+    coupan_title: "25% OFF ON LIQUORS",
+    coupan_validity: "DECEMBER 2025",
+    coupan_color: "blue",
+    coupan_age: true,
+  },
 ];
 
 const MyPage = () => {
@@ -69,11 +104,11 @@ const MyPage = () => {
   const [isSliderOpen, setIsSliderOpen] = useState(false);
   const [ageLimitaion, setAddlimitation] = useState(false);
   const [coupanPopup, setCoupanPopup] = useState(false);
-  const [voucerDes, setVoucherDes] = useState(null)
+  const [voucerDes, setVoucherDes] = useState(null);
   const handleBottmSheet = (val) => {
     setIsSliderOpen(val);
   };
-  
+
   const [visibleCount, setVisibleCount] = useState(3); // State to manage visible items
   const [isExpanded, setIsExpanded] = useState(false);
 
@@ -142,39 +177,71 @@ const MyPage = () => {
             alignItems: "center", // Center images horizontally
           }}
         >
-          <div style={{display:'flex', justifyContent:'space-between', alignItems:'center'}}> 
-            <img src={LoyaltyCard} alt="Coupon 1" style={{ objectFit: "contain" }}/>
-            <MdDelete style={{fontSize:"25px", color:'red'}}/>
-
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <img
+              src={LoyaltyCard}
+              alt="Coupon 1"
+              style={{ objectFit: "contain" }}
+            />
+            <MdDelete style={{ fontSize: "25px", color: "red" }} />
           </div>
 
-          <div style={{maxHeight:"400px", display:'flex', flexDirection:'column', gap:"20px", overflowX:'hidden'}} className={showAll ? "custom-scrollbar" : ""}>
-            {allCoupans.slice(0, showAll ? allCoupans.length : 2).map((coupan, index) => (
-              // <img key={index} src={coupan.img} alt={coupan.anme} style={{ objectFit: "contain" }} onClick={() => {
-              //   if (coupan?.age) {
-              //     setFreeCops(true);
-              //     setAddlimitation(true);
-              //     setVoucherDes(coupan.description);
-              //   } else {
-              //     setFreeCops(true);
-              //     setAddlimitation(false);
-              //     setVoucherDes(coupan.description);
-              //   }
-              // }} />
-              <CoupanComponent key={index} coupan_type ={coupan.coupan_type} coupan_discount={coupan.coupan_discount} coupan_title={coupan.coupan_title} coupan_validity={coupan.coupan_validity} coupan_age={coupan.coupan_age} coupan_color={coupan.coupan_color} occupied={coupan.occupied} onClick={() => {if (coupan.coupan_age) {
-                setFreeCops(true);
-                setAddlimitation(true);
-              } else {
-                setFreeCops(true);
-                setAddlimitation(false);
-              }}} />
-            ))}
+          <div
+            style={{
+              maxHeight: "400px",
+              display: "flex",
+              flexDirection: "column",
+              gap: "20px",
+              overflowX: "hidden",
+            }}
+            className={showAll ? "custom-scrollbar" : ""}
+          >
+            {allCoupans
+              .slice(0, showAll ? allCoupans.length : 2)
+              .map((coupan, index) => (
+                // <img key={index} src={coupan.img} alt={coupan.anme} style={{ objectFit: "contain" }} onClick={() => {
+                //   if (coupan?.age) {
+                //     setFreeCops(true);
+                //     setAddlimitation(true);
+                //     setVoucherDes(coupan.description);
+                //   } else {
+                //     setFreeCops(true);
+                //     setAddlimitation(false);
+                //     setVoucherDes(coupan.description);
+                //   }
+                // }} />
+                <CoupanComponent
+                  key={index}
+                  coupan_type={coupan.coupan_type}
+                  coupan_discount={coupan.coupan_discount}
+                  coupan_title={coupan.coupan_title}
+                  coupan_validity={coupan.coupan_validity}
+                  coupan_age={coupan.coupan_age}
+                  coupan_color={coupan.coupan_color}
+                  occupied={coupan.occupied}
+                  onClick={() => {
+                    if (coupan.coupan_age) {
+                      setFreeCops(true);
+                      setAddlimitation(true);
+                    } else {
+                      setFreeCops(true);
+                      setAddlimitation(false);
+                    }
+                  }}
+                />
+              ))}
           </div>
           {/* <img src={FreeBeer} alt="Coupon 2" style={{ objectFit: "contain" }} />
           <img src={Food} alt="Coupon 3" style={{ objectFit: "contain" }} /> */}
         </div>
         <button
-          onClick={() =>  setShowAll(!showAll)} // Implement your logic here
+          onClick={() => setShowAll(!showAll)} // Implement your logic here
           style={{
             marginTop: "20px",
             padding: "10px 20px",
@@ -186,7 +253,12 @@ const MyPage = () => {
           }}
         >
           {showAll ? "See Less" : "See More"}
-          <FaChevronDown style={{ marginLeft: "10px", rotate:`${showAll ? "180deg" : "0deg"}` }} />
+          <FaChevronDown
+            style={{
+              marginLeft: "10px",
+              rotate: `${showAll ? "180deg" : "0deg"}`,
+            }}
+          />
         </button>
       </div>
       <div
@@ -195,9 +267,10 @@ const MyPage = () => {
           justifyContent: "space-between",
           alignItems: "center",
           marginTop: 15,
+          zIndex: 100,
         }}
       >
-        <h3 style={{ marginLeft: "30px" }}>My Places</h3>
+        <h3 style={{ marginLeft: "30px", fontWeight: "600" }}>My Places</h3>
         <FaInfoCircle
           size={24}
           color="#25026E"
@@ -217,7 +290,21 @@ const MyPage = () => {
               <p style={styles.itemDescription}>{item.description}</p>
             </div>
             <div style={styles.itemButtons}>
-              <button style={styles.button}>VIEW COUPONS</button>
+              <button
+                style={{
+                  padding: 10,
+                  border: "none",
+                  borderRadius: "8px",
+                  cursor: "pointer",
+                  backgroundColor: "#25026E",
+                  color: "#fff",
+                  textAlign: "center",
+                  fontSize: 14,
+                  fontWeight: "600",
+                }}
+              >
+                VIEW COUPONS
+              </button>
               <button style={styles.button} onClick={() => setIsUnfollow(true)}>
                 UNFOLLOW
               </button>
@@ -247,27 +334,26 @@ const MyPage = () => {
             height: "100%",
           }}
         >
+          <img src={Line22} alt="line22" style={{ marginTop: 20 }} />
           <h2
             style={{
               textAlign: "center",
               marginBottom: "20px",
               color: "#000000",
               paddingTop: "20px",
+              fontWeight: "600",
             }}
           >
             Coupon Confirmation
           </h2>
-          <div
+          <img src={ThickLine} alt="thick tline" style={{ marginBottom: 30 }} />
+          <p
             style={{
-              backgroundColor: "#E0E0E0",
-              width: "80%",
-              height: "3px",
-              padding: "0",
-              boxSizing: "border-box",
-              marginBottom: "20px",
+              textAlign: "center",
+              marginBottom: "10px",
+              color: "#000000",
             }}
-          />
-          <p style={{ textAlign: "center", marginBottom: "30px" }}>
+          >
             I confirm that I want to activate the coupon.
           </p>
           <div
@@ -287,6 +373,7 @@ const MyPage = () => {
                 borderRadius: "4px",
                 cursor: "pointer",
                 fontWeight: "bold",
+                marginRight: 40,
                 boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)", // Added shadow here
                 transition: "box-shadow 0.3s ease", // Smooth transition for hover effect
               }}
@@ -298,7 +385,10 @@ const MyPage = () => {
               RETURN
             </button>
             <button
-              style={{ padding: "8px 12px", backgroundColor: "#2A0181", color: "white",
+              style={{
+                padding: "8px 12px",
+                backgroundColor: "#2A0181",
+                color: "white",
                 border: "none",
                 borderRadius: "4px",
                 cursor: "pointer",
@@ -310,31 +400,46 @@ const MyPage = () => {
               onClick={() => {
                 setIsSliderOpen(false);
                 setFreeCops(false);
-                setCoupanPopup(true)
+                setCoupanPopup(true);
               }}
             >
               ACTIVATE
             </button>
           </div>
-          <p style={{ margin: 10, color: "#000000", fontSize: 16, fontWeight: "500", textAlign: "center", }} >
+          <p
+            style={{
+              margin: 10,
+              color: "#000000",
+              fontSize: 16,
+              fontWeight: "500",
+              textAlign: "center",
+            }}
+          >
             Note: The coupon is valid for 15 minutes after activation.
           </p>
         </div>
       </BottomSheet>
 
       {coupanPopup && (
-        <Reward showPopup={coupanPopup}
-          onClose={() => setCoupanPopup(false)}
+        <Reward
+          showPopup={coupanPopup}
+          onClose={() => {
+            setCoupanPopup(false);
+            setVoucherDes(null);
+          }}
           countText={voucerDes}
         />
-        )}
+      )}
 
       <MyPageInfo
         isModalOpen={isModalOpen}
         setIsModalOpen={setIsModalOpen}
         coops={coopn}
       />
-
+      {/* <MyPlacesModal
+        show={isModalOpen}
+        onHide={() => setIsModalOpen(false)} // Close modal
+      /> */}
       <UnFollow isModalOpen={UnFollows} setIsModalOpen={setIsUnfollow} />
     </>
   );
@@ -387,10 +492,12 @@ const styles = {
   button: {
     padding: "5px 10px",
     border: "none",
-    borderRadius: "4px",
+    borderRadius: "8px",
     cursor: "pointer",
     backgroundColor: "#25026E",
     color: "#fff",
+    fontSize: 14,
+    fontWeight: "600",
     textAlign: "center",
   },
   showMore: {

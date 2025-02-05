@@ -36,19 +36,18 @@ const CopsActivation = ({
             top: "0",
             left: "0",
             width: "100%",
-            height: "100%",
             backgroundColor: "rgba(0, 0, 0, 0.5)",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            zIndex:'10'
+            zIndex: "10",
           }}
         >
           <div
             style={{
               backgroundColor: "#FFFFFF",
               padding: "20px",
-              borderRadius: "10px",
+              borderRadius: "25px",
               boxShadow: "0 2px 10px rgba(0, 0, 0, 0.1)",
               textAlign: "center",
               width: "90%",
@@ -63,24 +62,24 @@ const CopsActivation = ({
                 position: "relative",
               }}
             >
-              <h2 style={{ color: "black" }}>
+              <h5 style={{ color: "black" }}>
                 Congratulations, here is your coupon!
-              </h2>
+              </h5>
               <IoIosCloseCircle
                 color={"#2A0181"}
-                size={30}
+                size={28}
                 style={{
                   position: "absolute",
                   right: "-10px",
                   cursor: "pointer",
-                  top: "-10px",
+                  top: "-19px",
                 }}
                 onClick={closeModal}
               />
             </div>
             <img src={FreeCops} alt="free cops" />
-            
-            <p style={{ color: "black", textAlign: "center" }}>
+
+            <p style={{ color: "black", textAlign: "center", marginTop: 15 }}>
               Activate the coupon in-store and show this at the checkout.
               (Coupon is valid for 15 minutes after activation) <br />
             </p>
@@ -127,11 +126,14 @@ const CopsActivation = ({
                 }
               }}
             >
-              Activate
+              ACTIVATE
             </button>
             <p style={{ color: "black", textAlign: "center", marginTop: 10 }}>
               Read the campaign{" "}
-              <span style={{ color: "#25026E" }}>terms and conditions</span>.
+              <span style={{ color: "#25026E", textDecoration: "underline" }}>
+                terms and conditions
+              </span>
+              .
             </p>
           </div>
         </div>

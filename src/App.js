@@ -8,7 +8,7 @@ import AppRoutes from "./AppRoutes";
 
 function App() {
   const [isMobile, setIsMobile] = useState(false); // State for mobile detection
-  const [showSplash, setShowSplash] = useState(false);
+  const [showSplash, setShowSplash] = useState(true);
 
   useEffect(() => {
     // Check if the user is on a mobile device
@@ -30,20 +30,30 @@ function App() {
   }, []);
 
   useEffect(() => {
-    // Check if the splash screen has already been shown
-    const splashShown = localStorage.getItem("splashShown");
+    // Hide splash screen after 3 seconds
+    const splashTimer = setTimeout(() => {
+      setShowSplash(false);
+    }, 3000);
 
-    if (!splashShown) {
-      // If not shown, show splash screen and set the flag
-      setShowSplash(true);
-      const splashTimer = setTimeout(() => {
-        setShowSplash(false); // Hide splash screen after 3 seconds
-        localStorage.setItem("splashShown", "true"); // Save the flag
-      }, 3000);
-
-      return () => clearTimeout(splashTimer); // Cleanup timer on component unmount
-    }
+    // Cleanup timer on component unmount
+    return () => clearTimeout(splashTimer);
   }, []);
+
+  // useEffect(() => {
+  //   // Check if the splash screen has already been shown
+  //   const splashShown = localStorage.getItem("splashShown");
+
+  //   if (!splashShown) {
+  //     // If not shown, show splash screen and set the flag
+  //     setShowSplash(true);
+  //     const splashTimer = setTimeout(() => {
+  //       setShowSplash(false); // Hide splash screen after 3 seconds
+  //       localStorage.setItem("splashShown", "true"); // Save the flag
+  //     }, 3000);
+
+  //     return () => clearTimeout(splashTimer); // Cleanup timer on component unmount
+  //   }
+  // }, []);
 
   if (showSplash && isMobile) {
     // Splash screen content with a background image

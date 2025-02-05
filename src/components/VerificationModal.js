@@ -6,6 +6,7 @@ import { IoIosCloseCircle } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 const Verification = ({ isModalOpen, setIsModalOpen }) => {
   const closeModal = () => setIsModalOpen(false);
+  const [isDisable, setDisable] = useState(false);
   const navigate = useNavigate();
 
   const [otp, setOtp] = useState("");
@@ -15,10 +16,15 @@ const Verification = ({ isModalOpen, setIsModalOpen }) => {
   const [timeLeft, setTimeLeft] = useState(59); // Initial time in seconds
 
   useEffect(() => {
-    // Set up the countdown timer when the component mounts
+    if (timeLeft === 0) {
+      setDisable(false); // Enable when countdown ends
+      return;
+    }
+
+    setDisable(true); // Disable while counting down
     const timer = setInterval(() => {
       setTimeLeft((prevTime) => {
-        if (prevTime <= 0) {
+        if (prevTime <= 1) {
           clearInterval(timer); // Stop the timer when it reaches 0
           return 0;
         }
@@ -26,9 +32,9 @@ const Verification = ({ isModalOpen, setIsModalOpen }) => {
       });
     }, 1000);
 
-    // Clean up the timer when the component unmounts
+    // Cleanup interval on component unmount
     return () => clearInterval(timer);
-  }, []);
+  }, [timeLeft]);
 
   ///
 
@@ -74,7 +80,9 @@ const Verification = ({ isModalOpen, setIsModalOpen }) => {
               width: "95%",
             }}
           >
-            <h2>OTP Verification</h2>
+            <h2 style={{ color: "#000000", fontWeight: "bold" }}>
+              OTP Verification
+            </h2>
             <IoIosCloseCircle
               color={"#2A0181"}
               size={30}
@@ -98,7 +106,9 @@ const Verification = ({ isModalOpen, setIsModalOpen }) => {
                 marginLeft: "30px",
               }}
             />
-            <p style={{ fontSize: "20px", color: "#000000" }}>
+            <p
+              style={{ fontSize: "20px", color: "#000000", fontWeight: "500" }}
+            >
               Please type the verification code sent to{" "}
               <strong style={{ fontWeight: "bold" }}>+1 999 999 9999</strong>
             </p>
@@ -114,30 +124,51 @@ const Verification = ({ isModalOpen, setIsModalOpen }) => {
               <OtpInput
                 value={otp}
                 onChange={setOtp}
+                isInputNum={true} // Ensures numeric input
                 numInputs={4}
                 renderSeparator={<span> </span>}
-                renderInput={(props) => (
+                renderInput={(props, index) => (
                   <input
                     {...props}
+                    type="tel"
                     style={{
                       width: "60px",
                       height: "60px",
                       fontSize: "24px",
                       textAlign: "center",
                       border: "2px solid #ccc",
-                      borderRadius: "5px",
+                      borderRadius: "17px",
                       margin: "0 5px", // Adjust margin between inputs
+                      backgroundColor: otp[index] ? "#2A0181" : "#fff", // Change background dynamically
+                      color: otp[index] ? "#fff" : "#000", // Adjust text color for contrast
                     }}
                   />
                 )}
               />
             </div>
-            <CustomButton text={"Submit"} onClick={handleSubmit} />
+            <CustomButton
+              text={"Submit"}
+              onClick={handleSubmit}
+              fullWidth={"40%"}
+            />
 
             <div style={{ fontSize: "16px", color: "#000000", marginTop: 10 }}>
               <p style={{ margin: "0", color: "#565656" }}>
                 Didn't receive the verification code?{" "}
-                <strong style={{ fontWeight: "bold" }}>Resend</strong>
+                <strong
+                  style={{
+                    fontWeight: "bold",
+                    color: isDisable ? "#565656" : "#2A0181",
+                    cursor: isDisable ? "not-allowed" : "pointer",
+                  }}
+                  onClick={() => {
+                    if (!isDisable) {
+                      setTimeLeft(59);
+                    }
+                  }}
+                >
+                  Resend
+                </strong>
               </p>
               <p style={{ margin: "0", fontSize: "14px", color: "#565656" }}>
                 Resend verification code in{" "}

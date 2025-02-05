@@ -1,18 +1,18 @@
 import React, { useState } from "react";
 import { Button } from "react-bootstrap";
 import "../styles/header.css";
-import ImgBurger from "../assets/icons/hamburger.png";
+// import ImgBurger from "../assets/icons/hamburger.png";
 import OIO from "../assets/icons/header.png";
 import { Link } from "react-router-dom";
 import SlidingPage from "./SlidingPage";
 
-const Header = () => {
+const Header = ({ chgName = false }) => {
   const [showPage, setShowPage] = useState(false);
   return (
     <div>
       <div className="header-container">
         <div className="header-left">
-          <img
+          {/* <img
             src={ImgBurger}
             alt="ImgBurger"
             style={{
@@ -22,19 +22,25 @@ const Header = () => {
               alignSelf: "center",
             }}
             onClick={() => setShowPage(true)}
-          />
+          /> */}
         </div>
         <div className="header-buttons">
           <Button
             variant="primary"
             style={{ backgroundColor: "#2D008D", borderRadius: "10px" }}
           >
-            <Link
-              to="/signup"
-              style={{ textDecoration: "none", color: "white" }}
-            >
-              Sign Up
-            </Link>
+            {chgName === true ? (
+              <Link
+                to="/signup"
+                style={{ textDecoration: "none", color: "white" }}
+              >
+                Sign Up
+              </Link>
+            ) : (
+              <Link to="/" style={{ textDecoration: "none", color: "white" }}>
+                Log In
+              </Link>
+            )}
           </Button>
           <Button
             variant="secondary"
@@ -42,6 +48,11 @@ const Header = () => {
             style={{ borderRadius: "10px" }}
           >
             <span>Coupons</span>
+            {/* <img
+              src={Line}
+              alt="line"
+              style={{ marginLeft: 10, marginRight: 10 }}
+            /> */}
             <span>0</span>
           </Button>
         </div>

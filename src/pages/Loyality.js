@@ -8,6 +8,8 @@ import BottomSheet from "../components/BottomSheet";
 import Reward from "../components/Reward";
 import { useNavigate } from "react-router-dom";
 
+import Line22 from "../assets/icons/line222.png";
+
 const userData = {
   name: "Martin James",
   points: 500,
@@ -21,14 +23,14 @@ const Loyality = () => {
   const [isSliderOpen, setIsSliderOpen] = useState(false);
   const [coupanPopup, setCoupanPopup] = useState(false);
   const [user, setUser] = useState(userData);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const handleFlip = () => {
     setIsSliderOpen(!isSliderOpen);
   };
   // const handleFlip = (index) => {
   //   if (index !== 8) {
   //     setIsSliderOpen(!isSliderOpen);
-  //   } 
+  //   }
   // };
 
   return (
@@ -41,16 +43,31 @@ const Loyality = () => {
         <div className="loyality-content">
           <p
             style={{
-              font: "1.2rem",
+              fontSize: 22,
               color: "black",
-              fontWeight: "bold",
-              padding: "10px 0",
+              fontWeight: "700",
             }}
           >
             Thanks for your Loyalty
           </p>
           <div className="loyality-grid">
-            {[1, 2, 3, 4, 5, 6, 7, 8, "FREE ICE CREAM"].map((item, index) => {
+            {[
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              <span key="free">
+                FREE
+                <br />
+                ICE
+                <br />
+                CREAM
+              </span>,
+            ].map((item, index) => {
               const isRedeemed = index < user.reedem_coupan; // Check if the item is redeemed
               const isClickable = index === user.reedem_coupan; // Only the next item is clickable
 
@@ -83,8 +100,7 @@ const Loyality = () => {
             <h5>After 9 Sessions You Can Get</h5>
             <p>Free Ice Cream</p>
           </div>
-          <Button
-            style={{ backgroundColor: "#4F4F4F", border: "#4F4F4F" }}>
+          <Button style={{ backgroundColor: "#4F4F4F", border: "#4F4F4F" }}>
             ACTIVATE
           </Button>
 
@@ -98,6 +114,7 @@ const Loyality = () => {
                 height: "100%",
               }}
             >
+              <img src={Line22} alt="line22" style={{ marginTop: 20 }} />
               <h2
                 style={{
                   textAlign: "center",
@@ -163,7 +180,10 @@ const Loyality = () => {
                     marginLeft: 20,
                   }}
                   onClick={() => {
-                    const updatedUserData = { ...user, reedem_coupan: user.reedem_coupan + 1 };
+                    const updatedUserData = {
+                      ...user,
+                      reedem_coupan: user.reedem_coupan + 1,
+                    };
                     setUser(updatedUserData);
                     setIsSliderOpen(false);
                     setCoupanPopup(true);
@@ -188,8 +208,15 @@ const Loyality = () => {
           {coupanPopup && (
             <Reward
               showPopup={coupanPopup}
-              onClose={() => {setCoupanPopup(false); navigate("/dashboard")}}
-              countText={user?.reedem_coupan === 9 ? "You Got FREE ICECREAM" : `${user?.reedem_coupan} / ${userData?.total_coupan}`}
+              onClose={() => {
+                setCoupanPopup(false);
+                navigate("/dashboard");
+              }}
+              countText={
+                user?.reedem_coupan === 9
+                  ? "You Got FREE ICECREAM"
+                  : `${user?.reedem_coupan} / ${userData?.total_coupan}`
+              }
             />
           )}
         </div>
